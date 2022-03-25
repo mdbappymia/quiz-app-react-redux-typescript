@@ -3,13 +3,11 @@ import { useDispatch } from "react-redux";
 import { addQuiz } from "./redux/actions/quizAction";
 import quizs from "./assets/quizs.json";
 import Quizes from "./components/Quizes/Quizes";
+import AddQuestion from "./components/AddQuestion/AddQuestion";
 
 const App: FC = () => {
   const dispatch = useDispatch();
   const [start, setStart] = useState(false);
-  useEffect(() => {
-    dispatch(addQuiz(quizs));
-  }, [dispatch]);
   return (
     <div className="absolute h-full w-full bg-black">
       <h1 className="text-center font-bold text-3xl uppercase my-10 text-white">
@@ -32,6 +30,7 @@ const App: FC = () => {
             </button>
           </div>
         )}
+        <AddQuestion />
       </div>
     </div>
   );

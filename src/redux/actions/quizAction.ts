@@ -16,3 +16,10 @@ export const calculateResult = () => {
     type: "CALCULATE_RESULT",
   };
 };
+
+export const addNewQuestion = (payload: any) => {
+  return {
+    type: "ADD_NEW_QUESTION",
+    payload,
+  };
+};
