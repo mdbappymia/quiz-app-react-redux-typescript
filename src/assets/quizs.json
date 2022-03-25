@@ -1,0 +1,23 @@
+[
+    {
+        "id":1,
+        "question":"Which is not programming language ?",
+        "options":["C","C++","C--","C#"],
+        "answer":"C--"
+    },
+    {   "id":2,
+        "question":"Which is dynamic type programming language ?",
+        "options":["Python","C++","Java","TypeScript"],
+        "answer":"Python"
+    },
+    {   "id":3,
+        "question":"React is a JavaScript _________ .",
+        "options":["Framework","Library","Super Set","Compiler"],
+        "answer":"Library"
+    },
+    {   "id":4,
+        "question":"What is node js?",
+        "options":["Framework","Library","Super Set","Compiler"],
+        "answer":"Compiler"
+    }
+]
