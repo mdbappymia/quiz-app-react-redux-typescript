@@ -6,10 +6,10 @@ import SingleQuiz from "../SingleQuiz/SingleQuiz";
 const Quizes: FC = () => {
   const [displayIndex, setDisplayIndex] = useState(0);
   const allQuizes = useSelector((state: RootState) => state.quiz.quizes);
-  const getAnswer = useSelector((state: RootState) => state.quiz.userAnswer);
   const score = useSelector((state: RootState) => state.quiz.userScore);
-  console.log(getAnswer);
+  const user = useSelector((state: RootState) => state.users.user);
   const displayQuiz = allQuizes[displayIndex];
+
   return (
     <div>
       {displayIndex < allQuizes.length ? (
@@ -22,6 +22,9 @@ const Quizes: FC = () => {
       ) : (
         <div className="text-center">
           <h1 className="font-bold text-2xl my-3">Result</h1>
+          <p>
+            Hey <span>{user.displayName}</span>
+          </p>
           <p>
             Your Score {score} out of {allQuizes.length}
           </p>

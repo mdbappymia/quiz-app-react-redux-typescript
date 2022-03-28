@@ -28,7 +28,7 @@ const SingleQuiz: FC<IProps> = ({ quiz, setDisplayIndex, displayIndex }) => {
   return (
     <div>
       <h1 className="text-black font-bold py-3">
-        Q{id}: {question}
+        Q{displayIndex + 1}: {question}
       </h1>
       <div>
         {options.map((item, i) => (
@@ -42,15 +42,16 @@ const SingleQuiz: FC<IProps> = ({ quiz, setDisplayIndex, displayIndex }) => {
               type="radio"
               id={item + i}
               name="option"
+              className="cursor-pointer"
               value={item}
             />
             <label
               className={
                 disable && answer === item
-                  ? "text-green-500 font-bold mx-1"
+                  ? "text-green-500 font-bold mx-1 cursor-pointer"
                   : item === givenAnswer
-                  ? "text-red-500 mx-1"
-                  : "mx-1"
+                  ? "text-red-500 mx-1 cursor-pointer"
+                  : "mx-1 cursor-pointer"
               }
               htmlFor={item + i}
             >
