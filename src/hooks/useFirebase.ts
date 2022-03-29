@@ -20,11 +20,11 @@ const useFirebase = () => {
     signInWithPopup(auth, provider)
       .then((result: any) => {
         dispatch(setUser(result.user));
-        dispatch(setIsLoading(false));
       })
       .catch((e) => {
         console.log(e.message);
-      });
+      })
+      .finally(() => dispatch(setIsLoading(false)));
   };
   // logout
   const logOut = () => {
@@ -39,10 +39,10 @@ const useFirebase = () => {
       if (user) {
         dispatch(setUser(user));
         dispatch(setError(""));
-        dispatch(setIsLoading(false));
       } else {
         dispatch(setUser({}));
       }
+      dispatch(setIsLoading(false));
       return () => unsubscribed;
     });
   }, [auth, dispatch]);

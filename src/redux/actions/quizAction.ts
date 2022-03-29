@@ -41,3 +41,10 @@ export const addNewQuestion = (payload: any) => {
     payload,
   };
 };
+
+export const setSubjectQuiz = (payload: any) => {
+  return {
+    type: "SET_SUBJECT_QUIZ",
+    payload,
+  };
+};

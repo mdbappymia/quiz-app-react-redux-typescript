@@ -5,7 +5,7 @@ import SingleQuiz from "../SingleQuiz/SingleQuiz";
 
 const Quizes: FC = () => {
   const [displayIndex, setDisplayIndex] = useState(0);
-  const allQuizes = useSelector((state: RootState) => state.quiz.quizes);
+  const allQuizes = useSelector((state: RootState) => state.quiz.subjectQuiz);
   const score = useSelector((state: RootState) => state.quiz.userScore);
   const user = useSelector((state: RootState) => state.users.user);
   const displayQuiz = allQuizes[displayIndex];

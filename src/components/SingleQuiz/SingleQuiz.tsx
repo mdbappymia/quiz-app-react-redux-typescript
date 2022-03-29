@@ -16,7 +16,7 @@ const SingleQuiz: FC<IProps> = ({ quiz, setDisplayIndex, displayIndex }) => {
   const dispatch = useDispatch();
   const [givenAnswer, setGivenAnswer] = useState("");
   const [disable, setDisable] = useState(false);
-  const allQuizes = useSelector((state: RootState) => state.quiz.quizes);
+  const allQuizes = useSelector((state: RootState) => state.quiz.subjectQuiz);
   const { question, id, options, answer } = quiz;
   const handleNext = () => {
     dispatch(userSelectedAnswer({ givenAnswer, id }));

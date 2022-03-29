@@ -6,6 +6,7 @@ interface QuizState {
   userScore: number;
   loading: boolean;
   subjects: Array<string>;
+  subjectQuiz: Array<Quiz> | any;
 }
 const initialState: QuizState = {
   quizes: [],
@@ -13,27 +14,22 @@ const initialState: QuizState = {
   userScore: 0,
   loading: true,
   subjects: [],
+  subjectQuiz: [],
 };
 const quizReducer = (state = initialState, action: Action) => {
   switch (action.type) {
     case "GET_ALL_QUIZ": {
       const subjectFilterQuiz: any = [];
-      if (action.payload.length !== 0) {
-        for (let item of action.payload) {
-          if (
-            subjectFilterQuiz.find(
-              (item2: Quiz) => item.subject === item2.subject
-            ) ||
-            subjectFilterQuiz.length === 0
-          ) {
-            subjectFilterQuiz.push(item.subject);
-          }
+
+      for (let item of action.payload) {
+        if (!subjectFilterQuiz.includes(item.subject)) {
+          subjectFilterQuiz.push(item.subject);
         }
       }
       return {
         ...state,
         quizes: action.payload.sort(() => Math.random() - 0.5),
-        subjects: [...state.subjects, ...subjectFilterQuiz],
+        subjects: subjectFilterQuiz,
       };
     }
     case "GET_DATA_LOADING": {
@@ -68,6 +64,20 @@ const quizReducer = (state = initialState, action: Action) => {
       return {
         ...state,
         quizes: [...state.quizes, action.payload],
+      };
+    }
+    case "SET_SUBJECT_QUIZ": {
+      if (action.payload === "all") {
+        return {
+          ...state,
+          subjectQuiz: state.quizes.slice(0, 5),
+        };
+      }
+      return {
+        ...state,
+        subjectQuiz: state.quizes
+          .filter((item: Quiz) => item.subject === action.payload)
+          .slice(0, 5),
       };
     }
     default: {

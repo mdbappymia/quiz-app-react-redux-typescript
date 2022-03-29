@@ -4,12 +4,13 @@ import AddQuestion from "./components/AddQuestion/AddQuestion";
 import useFirebase from "./hooks/useFirebase";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./redux/store/store";
-import { allQuiz } from "./redux/actions/quizAction";
+import { allQuiz, setSubjectQuiz } from "./redux/actions/quizAction";
 
 const App: FC = () => {
   const [start, setStart] = useState(false);
   const dispatch = useDispatch();
   const [addQuestion, setAddQuestion] = useState(false);
+  const [subjectName, setSubjectName] = useState("all");
   const user = useSelector((state: RootState) => state.users.user);
   const isLoading = useSelector((state: RootState) => state.users.isLoading);
   const subjects = useSelector((state: RootState) => state.quiz.subjects);
@@ -54,15 +55,33 @@ const App: FC = () => {
         selected. answer
       </p>
       <div className="bg-white w-96 mx-auto p-10 rounded">
+        {/* {!start && (
+          
+        )} */}
         {start ? (
           <Quizes />
         ) : addQuestion ? (
           <AddQuestion />
         ) : (
           <div className="block text-center">
+            <div className=" my-2 mx-auto">
+              <h1>Select your subject</h1>
+              <select
+                onChange={(e: any) => setSubjectName(e.target.value)}
+                className="my-1 w-full border p-2"
+              >
+                <option value="all">All</option>
+                {subjects.map((item: string, i: number) => (
+                  <option key={i} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </select>
+            </div>
             <button
               className=" bg-green-600 px-5 font-bold text-white uppercase rounded hover:bg-green-700 py-3"
               onClick={() => {
+                dispatch(setSubjectQuiz(subjectName));
                 setStart(true);
                 setAddQuestion(false);
               }}

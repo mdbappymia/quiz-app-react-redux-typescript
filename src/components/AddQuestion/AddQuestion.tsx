@@ -10,9 +10,11 @@ const AddQuestion: FC = () => {
   const [questionOptions, setQuestionOptions] = useState<any>([]);
   const [question, setQuestion] = useState("");
   const [correctAnswer, setCorrectAnswer] = useState("");
+  const [subjectName, setSubjectName] = useState("");
   const [isSelectSubject, setIsSelectSubject] = useState(true);
   const allQuizes = useSelector((state: RootState) => state.quiz.quizes);
   const loading = useSelector((state: RootState) => state.quiz.loading);
+  const subjects = useSelector((state: RootState) => state.quiz.subjects);
   const dispatch = useDispatch();
   const handleAddOptions = () => {
     if (optionText === "") {
@@ -32,10 +34,11 @@ const AddQuestion: FC = () => {
       id: allQuizes.length + 1,
       question: question,
       options: questionOptions,
-      answer: correctAnswer,
+      answer: correctAnswer || questionOptions[0],
+      subject: subjectName || subjects[0],
     };
     const isAdded = window.confirm("Are you sure added this question?");
-    if (question === "" || correctAnswer === "") {
+    if (question === "") {
       alert("All field required");
       console.log(submittedData);
       return;
@@ -81,6 +84,30 @@ const AddQuestion: FC = () => {
             id="subjectC"
           />
           <label htmlFor="subjectC"> Create new subject</label>
+        </div>
+        <div>
+          {isSelectSubject ? (
+            <select
+              className="my-1 w-20 border p-1"
+              onChange={(e) => setSubjectName(e.target.value)}
+            >
+              {subjects.map((item: string, i: number) => (
+                <option
+                  onChange={(e: any) => setSubjectName(e.target.value)}
+                  key={i}
+                  value={item}
+                >
+                  {item}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <input
+              className="border my-1 p-1"
+              onChange={(e) => setSubjectName(e.target.value)}
+              type="text"
+            />
+          )}
         </div>
       </div>
       <div>
