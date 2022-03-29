@@ -1,11 +1,10 @@
 import { FC, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Quiz } from "../../interfaces/interfaces";
 import {
   calculateResult,
   userSelectedAnswer,
 } from "../../redux/actions/quizAction";
-import { RootState } from "../../redux/store/store";
 
 interface IProps {
   quiz: Quiz;
@@ -16,15 +15,14 @@ const SingleQuiz: FC<IProps> = ({ quiz, setDisplayIndex, displayIndex }) => {
   const dispatch = useDispatch();
   const [givenAnswer, setGivenAnswer] = useState("");
   const [disable, setDisable] = useState(false);
-  const allQuizes = useSelector((state: RootState) => state.quiz.subjectQuiz);
+
   const { question, id, options, answer } = quiz;
   const handleNext = () => {
     dispatch(userSelectedAnswer({ givenAnswer, id }));
     setDisplayIndex(displayIndex + 1);
-    if (displayIndex === allQuizes.length - 1) {
-      dispatch(calculateResult());
-    }
+    dispatch(calculateResult());
   };
+
   return (
     <div>
       <h1 className="text-black font-bold py-3">

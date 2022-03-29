@@ -7,6 +7,8 @@ interface QuizState {
   loading: boolean;
   subjects: Array<string>;
   subjectQuiz: Array<Quiz> | any;
+  userSelectedSubject: string;
+  initialWait: boolean;
 }
 const initialState: QuizState = {
   quizes: [],
@@ -15,12 +17,13 @@ const initialState: QuizState = {
   loading: true,
   subjects: [],
   subjectQuiz: [],
+  userSelectedSubject: "",
+  initialWait: true,
 };
 const quizReducer = (state = initialState, action: Action) => {
   switch (action.type) {
     case "GET_ALL_QUIZ": {
       const subjectFilterQuiz: any = [];
-
       for (let item of action.payload) {
         if (!subjectFilterQuiz.includes(item.subject)) {
           subjectFilterQuiz.push(item.subject);
@@ -30,6 +33,7 @@ const quizReducer = (state = initialState, action: Action) => {
         ...state,
         quizes: action.payload.sort(() => Math.random() - 0.5),
         subjects: subjectFilterQuiz,
+        initialWait: false,
       };
     }
     case "GET_DATA_LOADING": {
@@ -75,6 +79,7 @@ const quizReducer = (state = initialState, action: Action) => {
       }
       return {
         ...state,
+        userSelectedSubject: action.payload,
         subjectQuiz: state.quizes
           .filter((item: Quiz) => item.subject === action.payload)
           .slice(0, 5),

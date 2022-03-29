@@ -8,8 +8,21 @@ const Quizes: FC = () => {
   const allQuizes = useSelector((state: RootState) => state.quiz.subjectQuiz);
   const score = useSelector((state: RootState) => state.quiz.userScore);
   const user = useSelector((state: RootState) => state.users.user);
+  const subject = useSelector(
+    (state: RootState) => state.quiz.userSelectedSubject
+  );
   const displayQuiz = allQuizes[displayIndex];
 
+  if (displayIndex === allQuizes.length) {
+    localStorage.setItem(
+      "result",
+      JSON.stringify({
+        name: user.displayName,
+        subject: subject || "All",
+        score: (score / allQuizes.length) * 100,
+      })
+    );
+  }
   return (
     <div>
       {displayIndex < allQuizes.length ? (
@@ -25,6 +38,7 @@ const Quizes: FC = () => {
           <p>
             Hey <span>{user.displayName || "Undefine"}</span>
           </p>
+          <p>Your subject is {subject}</p>
           <p>
             Your Score {score} out of {allQuizes.length}
           </p>

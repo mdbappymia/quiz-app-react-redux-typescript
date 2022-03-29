@@ -12,14 +12,18 @@ const App: FC = () => {
   const dispatch = useDispatch();
   const [addQuestion, setAddQuestion] = useState(false);
   const [subjectName, setSubjectName] = useState("all");
+  const [result, setResult] = useState<any>({});
   const user = useSelector((state: RootState) => state.users.user);
   const isLoading = useSelector((state: RootState) => state.users.isLoading);
   const subjects = useSelector((state: RootState) => state.quiz.subjects);
+  const initialWait = useSelector((state: RootState) => state.quiz.initialWait);
   const { googleSignIn, logOut } = useFirebase();
+
   useEffect(() => {
+    setResult(JSON.parse(localStorage.getItem("result") || "[]"));
     dispatch(allQuiz());
   }, [dispatch]);
-  console.log(subjects);
+
   if (isLoading) {
     return (
       <div className="flex bg-black min-h-screen justify-center items-center px-3">
@@ -68,48 +72,57 @@ const App: FC = () => {
           />
         </div>
       )}
-      <div className="bg-white max-w-sm mx-auto p-10 rounded">
-        {start ? (
-          <Quizes />
-        ) : addQuestion ? (
-          <AddQuestion />
-        ) : (
-          <div className="block text-center">
-            <div className=" my-2 mx-auto">
-              <h1>Select your subject</h1>
-              <select
-                onChange={(e: any) => setSubjectName(e.target.value)}
-                className="my-1 w-full border p-2"
-              >
-                <option value="all">All</option>
-                {subjects.map((item: string, i: number) => (
-                  <option key={i} value={item}>
-                    {item}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <button
-              className=" bg-green-600 px-5 font-bold text-white uppercase rounded hover:bg-green-700 py-3"
-              onClick={() => {
-                dispatch(setSubjectQuiz(subjectName));
-                setStart(true);
-                setAddQuestion(false);
-              }}
-            >
-              Start
-            </button>
-            {user.email === "mbm.21.02.16@gmail.com" && (
+      {!initialWait && (
+        <div className="bg-white max-w-sm mx-auto p-10 rounded">
+          {start ? (
+            <Quizes />
+          ) : addQuestion ? (
+            <AddQuestion />
+          ) : (
+            <div className="block text-center">
+              <div className=" my-2 mx-auto">
+                <h1>Select your subject</h1>
+                <select
+                  onChange={(e: any) => setSubjectName(e.target.value)}
+                  className="my-1 w-full border p-2"
+                >
+                  <option value="all">All</option>
+                  {subjects.map((item: string, i: number) => (
+                    <option key={i} value={item}>
+                      {item}
+                    </option>
+                  ))}
+                </select>
+              </div>
               <button
-                className=" bg-lime-600 mx-3 px-5 font-bold text-white uppercase rounded hover:bg-green-700 py-3"
-                onClick={() => setAddQuestion(true)}
+                className=" bg-green-600 px-5 font-bold text-white uppercase rounded hover:bg-green-700 py-3"
+                onClick={() => {
+                  dispatch(setSubjectQuiz(subjectName));
+                  setStart(true);
+                  setAddQuestion(false);
+                }}
               >
-                Add Question
+                Start
               </button>
-            )}
-          </div>
-        )}
-      </div>
+              {user.email === "mbm.21.02.16@gmail.com" && (
+                <button
+                  className=" bg-lime-600 mx-3 px-5 font-bold text-white uppercase rounded hover:bg-green-700 py-3"
+                  onClick={() => setAddQuestion(true)}
+                >
+                  Add Question
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+      {!start && (
+        <div className="text-white text-center mt-3">
+          <p>Your last result is</p>
+          <p>Subject: {result.subject}</p>
+          <p>Score: {result.score}%</p>
+        </div>
+      )}
     </div>
   );
 };
