@@ -118,7 +118,7 @@ const App: FC = () => {
           )}
         </div>
       )}
-      {!start && (
+      {!start && result.subject && (
         <div className="text-white text-center mt-3">
           <p>Your last result is</p>
           <p>Subject: {result.subject}</p>
