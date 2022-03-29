@@ -37,7 +37,9 @@ const App: FC = () => {
       <h1 className="text-center font-bold text-3xl uppercase my-3 text-white">
         Simple Quiz App
       </h1>
-      <h1 className="text-white text-center">{user.displayName}</h1>
+      <h1 className="text-white text-center font-bold uppercase">
+        {user.displayName}
+      </h1>
       <div className="text-center">
         {!user.email ? (
           <button
@@ -55,7 +57,7 @@ const App: FC = () => {
           </button>
         )}
       </div>
-      <p className="font-bold text-yellow-500 text-center w-72 mx-auto my-10">
+      <p className="font-bold text-yellow-500 text-center w-72 mx-auto my-5">
         NB: Thiking first then chose the answer. Because you can not undo the
         selected. answer
       </p>
