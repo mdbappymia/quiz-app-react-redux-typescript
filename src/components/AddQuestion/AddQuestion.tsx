@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { collection, addDoc } from "firebase/firestore";
 import { RootState } from "../../redux/store/store";
 import { db } from "../../auth/firebase.config";
-import { addNewQuestion } from "../../redux/actions/quizAction";
+import { addNewQuestion, setQuizLoading } from "../../redux/actions/quizAction";
 
 const AddQuestion: FC = () => {
   const [optionText, setOptionText] = useState("");
@@ -37,13 +37,16 @@ const AddQuestion: FC = () => {
       answer: correctAnswer || questionOptions[0],
       subject: subjectName || subjects[0],
     };
-    const isAdded = window.confirm("Are you sure added this question?");
+    const isAdded = window.confirm(
+      JSON.stringify(submittedData) + "Are you sure added this question?"
+    );
     if (question === "") {
       alert("All field required");
       console.log(submittedData);
       return;
     }
     if (isAdded) {
+      dispatch(setQuizLoading(true));
       try {
         const docRef = await addDoc(collection(db, "quizes"), submittedData);
         console.log("Document written with ID: ", docRef.id);
@@ -52,6 +55,8 @@ const AddQuestion: FC = () => {
           alert("Added Successfully");
           setQuestionOptions([]);
           setQuestion("");
+          setCorrectAnswer("");
+          dispatch(setQuizLoading(false));
         }
       } catch (e) {
         console.error("Error adding document: ", e);

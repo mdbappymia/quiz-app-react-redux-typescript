@@ -23,7 +23,7 @@ const Quizes: FC = () => {
         <div className="text-center">
           <h1 className="font-bold text-2xl my-3">Result</h1>
           <p>
-            Hey <span>{user.displayName}</span>
+            Hey <span>{user.displayName || "Undefine"}</span>
           </p>
           <p>
             Your Score {score} out of {allQuizes.length}

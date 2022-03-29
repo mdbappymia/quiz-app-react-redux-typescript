@@ -5,6 +5,7 @@ import useFirebase from "./hooks/useFirebase";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./redux/store/store";
 import { allQuiz, setSubjectQuiz } from "./redux/actions/quizAction";
+import { setUser } from "./redux/actions/userAction";
 
 const App: FC = () => {
   const [start, setStart] = useState(false);
@@ -21,14 +22,14 @@ const App: FC = () => {
   console.log(subjects);
   if (isLoading) {
     return (
-      <div className="flex bg-black min-h-screen justify-center items-center">
+      <div className="flex bg-black min-h-screen justify-center items-center px-3">
         <h1 className="text-white font-bold text-4xl uppercase">Loaidng ...</h1>
       </div>
     );
   }
 
   return (
-    <div className=" min-h-screen py-10 w-full bg-black">
+    <div className="min-h-screen py-10 w-full bg-black px-3">
       <h1 className="text-center font-bold text-3xl uppercase my-3 text-white">
         Simple Quiz App
       </h1>
@@ -51,13 +52,23 @@ const App: FC = () => {
         )}
       </div>
       <p className="font-bold text-yellow-500 text-center w-72 mx-auto my-10">
-        NB: Thik first then chose the answer. Because you can not undo the
+        NB: Thiking first then chose the answer. Because you can not undo the
         selected. answer
       </p>
-      <div className="bg-white w-96 mx-auto p-10 rounded">
-        {/* {!start && (
-          
-        )} */}
+
+      {!user.uid && (
+        <div className="text-center my-1 text-black">
+          <input
+            className="p-1"
+            placeholder="Enter your name"
+            type="text"
+            name=""
+            id=""
+            onChange={(e) => dispatch(setUser({ displayName: e.target.value }))}
+          />
+        </div>
+      )}
+      <div className="bg-white max-w-sm mx-auto p-10 rounded">
         {start ? (
           <Quizes />
         ) : addQuestion ? (
@@ -88,7 +99,7 @@ const App: FC = () => {
             >
               Start
             </button>
-            {user.email && (
+            {user.email === "mbm.21.02.16@gmail.com" && (
               <button
                 className=" bg-lime-600 mx-3 px-5 font-bold text-white uppercase rounded hover:bg-green-700 py-3"
                 onClick={() => setAddQuestion(true)}
