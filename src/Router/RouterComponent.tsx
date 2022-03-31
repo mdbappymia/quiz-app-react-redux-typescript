@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import App from "../App";
 import AdminHome from "../Pages/Admin/AdminHome/AdminHome";
+import PrintPageHome from "../Pages/PrintPage/PrintPageHome/PrintPageHome";
 import Questions from "../Pages/QuestionPage/Questions/Questions";
 
 import { getWithoutApproveQuiz } from "../redux/actions/adminAction";
@@ -22,6 +23,7 @@ const RouterComponent: FC = () => {
       <Route path="/" element={<App result={result} setResult={setResult} />} />
       <Route path="/admin" element={<AdminHome />} />
       <Route path="/questions" element={<Questions />} />
+      <Route path="/print" element={<PrintPageHome />} />
     </Routes>
   );
 };

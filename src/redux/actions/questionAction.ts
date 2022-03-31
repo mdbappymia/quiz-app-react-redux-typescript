@@ -4,3 +4,10 @@ export const addQuestion = (payload: any) => {
     payload,
   };
 };
+
+export const removeQuestion = (payload: any) => {
+  return {
+    type: "REMOVE_QUESTION",
+    payload,
+  };
+};
