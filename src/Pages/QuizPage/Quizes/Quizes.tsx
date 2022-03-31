@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store/store";
+import { RootState } from "../../../redux/store/store";
 import SingleQuiz from "../SingleQuiz/SingleQuiz";
 
 const Quizes: FC = () => {

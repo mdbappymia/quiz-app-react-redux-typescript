@@ -1,11 +1,12 @@
 import { FC, useState } from "react";
-import Quizes from "./components/Quizes/Quizes";
-import AddQuestion from "./components/AddQuestion/AddQuestion";
+
 import useFirebase from "./hooks/useFirebase";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./redux/store/store";
 import { setSubjectQuiz } from "./redux/actions/quizAction";
 import { setUser } from "./redux/actions/userAction";
+import Quizes from "./Pages/QuizPage/Quizes/Quizes";
+import AddQuestion from "./Pages/QuizPage/AddQuestion/AddQuestion";
 
 interface IProps {
   result: any;

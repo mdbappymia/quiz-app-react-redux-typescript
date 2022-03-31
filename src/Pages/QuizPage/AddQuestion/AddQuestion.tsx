@@ -1,9 +1,12 @@
 import { FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { collection, addDoc } from "firebase/firestore";
-import { RootState } from "../../redux/store/store";
-import { db } from "../../auth/firebase.config";
-import { addNewQuestion, setQuizLoading } from "../../redux/actions/quizAction";
+import { RootState } from "../../../redux/store/store";
+import { db } from "../../../auth/firebase.config";
+import {
+  addNewQuestion,
+  setQuizLoading,
+} from "../../../redux/actions/quizAction";
 
 const AddQuestion: FC = () => {
   const [optionText, setOptionText] = useState("");
@@ -12,9 +15,9 @@ const AddQuestion: FC = () => {
   const [correctAnswer, setCorrectAnswer] = useState("");
   const [subjectName, setSubjectName] = useState("");
   const [isSelectSubject, setIsSelectSubject] = useState(true);
-  const allQuizes = useSelector((state: RootState) => state.quiz.quizes);
   const loading = useSelector((state: RootState) => state.quiz.loading);
   const subjects = useSelector((state: RootState) => state.quiz.subjects);
+  const user = useSelector((state: RootState) => state.users.user);
   const dispatch = useDispatch();
   const handleAddOptions = () => {
     if (optionText === "") {
@@ -37,11 +40,12 @@ const AddQuestion: FC = () => {
       answer: correctAnswer || questionOptions[0],
       subject: subjectName || subjects[0],
       approve: false,
+      user: user.displayName || "Unknown",
     };
     const isAdded = window.confirm(
       JSON.stringify(submittedData) + "Are you sure added this question?"
     );
-    if (question === "") {
+    if (question === "" || questionOptions.length === 0) {
       alert("All field required");
       console.log(submittedData);
       return;
@@ -124,9 +128,6 @@ const AddQuestion: FC = () => {
           placeholder="Question"
           className="border w-full text-xl p-1"
         />
-        <h1 className="text-xl border my-1 p-1">
-          ID: {loading ? <p>Loading...</p> : allQuizes.length + 1}
-        </h1>
         <h1 className="text-center my-2 font-bold uppercase">Options</h1>
         {questionOptions.map((item: string, i: number) => (
           <div key={i} className="border flex justify-between w-full p-2">

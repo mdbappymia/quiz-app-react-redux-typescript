@@ -6,6 +6,7 @@ export interface Quiz {
   subject: string;
   approve?: boolean;
   qid: string;
+  user?: string;
 }
 export interface Action {
   type: string;

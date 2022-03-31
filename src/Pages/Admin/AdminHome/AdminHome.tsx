@@ -7,11 +7,10 @@ const AdminHome = () => {
   const quizes = useSelector(
     (state: RootState) => state.admin.withoutApproveQuiz
   );
-  console.log(quizes);
   return (
-    <div className="bg-black">
+    <div className="bg-black min-h-screen">
       <h1 className="text-center font-bold text-white uppercase text-4xl py-10">
-        Admin Management
+        All question
       </h1>
       <div className="grid grid-cols-4 gap-6 container mx-auto">
         {quizes.map((item: Quiz, i: number) => (

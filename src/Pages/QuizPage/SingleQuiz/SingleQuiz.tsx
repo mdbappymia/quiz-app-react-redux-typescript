@@ -1,10 +1,10 @@
 import { FC, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Quiz } from "../../interfaces/interfaces";
+import { Quiz } from "../../../interfaces/interfaces";
 import {
   calculateResult,
   userSelectedAnswer,
-} from "../../redux/actions/quizAction";
+} from "../../../redux/actions/quizAction";
 
 interface IProps {
   quiz: Quiz;

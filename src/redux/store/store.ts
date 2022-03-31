@@ -3,11 +3,13 @@ import quizReducer from "../reducers/quizReducer";
 import userReducer from "../reducers/userReducer";
 import thunk from "redux-thunk";
 import adminReducer from "../reducers/adminReducer";
+import questionReducer from "../reducers/questionReducer";
 
 const rootReducer = combineReducers({
   quiz: quizReducer,
   users: userReducer,
   admin: adminReducer,
+  question: questionReducer,
 });
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));
