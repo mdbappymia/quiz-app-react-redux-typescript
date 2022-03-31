@@ -1,28 +1,28 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import Quizes from "./components/Quizes/Quizes";
 import AddQuestion from "./components/AddQuestion/AddQuestion";
 import useFirebase from "./hooks/useFirebase";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./redux/store/store";
-import { allQuiz, setSubjectQuiz } from "./redux/actions/quizAction";
+import { setSubjectQuiz } from "./redux/actions/quizAction";
 import { setUser } from "./redux/actions/userAction";
 
-const App: FC = () => {
+interface IProps {
+  result: any;
+  setResult: Function;
+}
+
+const App: FC<IProps> = ({ result, setResult }) => {
   const [start, setStart] = useState(false);
   const dispatch = useDispatch();
   const [addQuestion, setAddQuestion] = useState(false);
   const [subjectName, setSubjectName] = useState("all");
-  const [result, setResult] = useState<any>({});
+
   const user = useSelector((state: RootState) => state.users.user);
   const isLoading = useSelector((state: RootState) => state.users.isLoading);
   const subjects = useSelector((state: RootState) => state.quiz.subjects);
   const initialWait = useSelector((state: RootState) => state.quiz.initialWait);
   const { googleSignIn, logOut } = useFirebase();
-
-  useEffect(() => {
-    setResult(JSON.parse(localStorage.getItem("result") || "[]"));
-    dispatch(allQuiz());
-  }, [dispatch]);
 
   if (isLoading) {
     return (

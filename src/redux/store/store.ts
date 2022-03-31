@@ -2,10 +2,12 @@ import { applyMiddleware, combineReducers, createStore } from "redux";
 import quizReducer from "../reducers/quizReducer";
 import userReducer from "../reducers/userReducer";
 import thunk from "redux-thunk";
+import adminReducer from "../reducers/adminReducer";
 
 const rootReducer = combineReducers({
   quiz: quizReducer,
   users: userReducer,
+  admin: adminReducer,
 });
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));

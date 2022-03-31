@@ -1,11 +1,14 @@
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../auth/firebase.config";
 
-export const getAllQuizes = async () => {
+export const getAllQuizes = async (approve: boolean) => {
   const quizes: any = [];
-  const querySnapshot = await getDocs(collection(db, "quizes"));
+  const q = query(collection(db, "quizes"), where("approve", "==", approve));
+  const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
-    quizes.push(doc.data());
+    // console.log(doc.id);
+    quizes.push({ ...doc.data(), qid: doc.id });
   });
+
   return quizes;
 };

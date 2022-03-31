@@ -31,11 +31,12 @@ const AddQuestion: FC = () => {
   };
   const handleSubmit = async () => {
     const submittedData = {
-      id: allQuizes.length + 1,
+      id: Date.now(),
       question: question,
       options: questionOptions,
       answer: correctAnswer || questionOptions[0],
       subject: subjectName || subjects[0],
+      approve: false,
     };
     const isAdded = window.confirm(
       JSON.stringify(submittedData) + "Are you sure added this question?"

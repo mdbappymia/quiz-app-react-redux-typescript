@@ -2,7 +2,7 @@ import { getAllQuizes } from "../../functions/data";
 
 export const allQuiz = () => {
   return (dispatch: any) => {
-    getAllQuizes().then((data) => {
+    getAllQuizes(true).then((data) => {
       dispatch(setQuizLoading(false));
       dispatch(getQuizes(data));
     });
