@@ -60,7 +60,7 @@ const App: FC<IProps> = ({ result, setResult }) => {
       </div>
       <p className="font-bold text-yellow-500 text-center w-72 mx-auto my-5">
         NB: Thiking first then chose the answer. Because you can not undo the
-        selected. answer
+        selected answer.
       </p>
 
       {!user.uid && (

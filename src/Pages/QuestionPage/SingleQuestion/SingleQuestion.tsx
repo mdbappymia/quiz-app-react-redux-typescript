@@ -14,15 +14,15 @@ const SingleQuestion: FC<IProps> = ({ question, i, handleSelectQuestion }) => {
     (state: RootState) => state.question.questions
   );
 
-  const { options, answer, user } = question;
+  const { options, answer, user, qid } = question;
+
+  // console.log(question.qid);
   return (
     <div key={i} className="flex bg-white text-black p-3">
       <input
         className="mx-1 mt-2 w-10"
         type="checkbox"
-        checked={Boolean(
-          selectedQuestion.find((item) => item.qid === question.qid)
-        )}
+        checked={Boolean(selectedQuestion.find((item) => item.qid === qid))}
         onChange={() => {
           handleSelectQuestion(question);
         }}

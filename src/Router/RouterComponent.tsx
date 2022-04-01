@@ -3,10 +3,14 @@ import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import App from "../App";
 import AdminHome from "../Pages/Admin/AdminHome/AdminHome";
+import ManageAllQuiz from "../Pages/Admin/ManageAllQuiz/ManageAllQuiz";
 import PrintPageHome from "../Pages/PrintPage/PrintPageHome/PrintPageHome";
 import Questions from "../Pages/QuestionPage/Questions/Questions";
+import Footer from "../Pages/Shared/Footer/Footer";
+import Header from "../Pages/Shared/Header/Header";
 
 import { getWithoutApproveQuiz } from "../redux/actions/adminAction";
+import { allQuizForManage } from "../redux/actions/questionAction";
 import { allQuiz } from "../redux/actions/quizAction";
 
 const RouterComponent: FC = () => {
@@ -16,15 +20,26 @@ const RouterComponent: FC = () => {
     setResult(JSON.parse(localStorage.getItem("result") || "[]"));
     dispatch(getWithoutApproveQuiz());
     dispatch(allQuiz());
+    dispatch(allQuizForManage());
   }, [dispatch]);
 
   return (
-    <Routes>
-      <Route path="/" element={<App result={result} setResult={setResult} />} />
-      <Route path="/admin" element={<AdminHome />} />
-      <Route path="/questions" element={<Questions />} />
-      <Route path="/print" element={<PrintPageHome />} />
-    </Routes>
+    <>
+      <Header />
+      <div className="bg-black px-2">
+        <Routes>
+          <Route
+            path="/"
+            element={<App result={result} setResult={setResult} />}
+          />
+          <Route path="/admin" element={<AdminHome />} />
+          <Route path="/questions" element={<Questions />} />
+          <Route path="/print" element={<PrintPageHome />} />
+          <Route path="/manage" element={<ManageAllQuiz />} />
+        </Routes>
+      </div>
+      <Footer />
+    </>
   );
 };
 

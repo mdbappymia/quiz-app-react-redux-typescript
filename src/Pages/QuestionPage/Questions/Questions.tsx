@@ -1,20 +1,23 @@
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import ReactToPrint, { useReactToPrint } from "react-to-print";
 import { Quiz } from "../../../interfaces/interfaces";
 import {
   addQuestion,
   removeQuestion,
 } from "../../../redux/actions/questionAction";
 import { RootState } from "../../../redux/store/store";
+import PrintPageHome from "../../PrintPage/PrintPageHome/PrintPageHome";
 import SingleQuestion from "../SingleQuestion/SingleQuestion";
 
 const Questions: FC = () => {
   const dispatch = useDispatch();
-  const selectedQuestion = useSelector(
+  const allQuiz = useSelector(
+    (state: RootState) => state.question.manageQuestion
+  );
+  const allSelectedQuestion = useSelector(
     (state: RootState) => state.question.questions
   );
-  const allQuiz = useSelector((state: RootState) => state.quiz.quizes);
   const [displayQuestion, setDisplayQuestion] = useState(allQuiz);
   const [questionText, setQuestionText] = useState("");
   const [subjectText, setSubjectText] = useState("");
@@ -41,44 +44,57 @@ const Questions: FC = () => {
     handleFilter();
   }, [allQuiz, handleFilter]);
   const handleSelectQuestion = (question: Quiz) => {
-    if (selectedQuestion.find((item) => item.id === question.id)) {
+    if (allSelectedQuestion.find((item) => item.qid === question.qid)) {
       dispatch(removeQuestion(question.qid));
       return;
     }
     dispatch(addQuestion({ ...question }));
   };
-
+  const componentRef: any = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
   return (
     <div className="bg-black min-h-screen pb-10">
       <h1 className="text-center font-bold uppercase text-4xl py-5 text-white">
         Questions
       </h1>
-      <Link className="text-white" to="/print">
-        Print
-      </Link>
+
       <div className="container mx-auto h-72 bg-white p-5 overflow-auto">
         <ol className="list-item ">
-          {selectedQuestion.map((question: Quiz) => (
-            <li
-              className="border m-3 mr-0 p-3 pr-0 list-decimal flex justify-between"
-              key={question.qid}
-            >
-              <p>{question.question}</p>
-              <p>
-                <span
-                  onClick={() => dispatch(removeQuestion(question.qid))}
-                  className="bg-red-600 p-3 text-white font-bold cursor-pointer hover:bg-red-700 active:bg-red-800"
-                >
-                  X
-                </span>
-              </p>
-            </li>
-          ))}
+          {allSelectedQuestion.length > 0 ? (
+            allSelectedQuestion.map((question: Quiz) => (
+              <li
+                className="border m-3 mr-0 p-3 pr-0 list-decimal flex justify-between"
+                key={question.qid}
+              >
+                <p>{question.question}</p>
+                <p>
+                  <span
+                    onClick={() => dispatch(removeQuestion(question.qid))}
+                    className="bg-red-600 p-3 text-white font-bold cursor-pointer hover:bg-red-700 active:bg-red-800"
+                  >
+                    X
+                  </span>
+                </p>
+              </li>
+            ))
+          ) : (
+            <h1>Select question from below</h1>
+          )}
         </ol>
       </div>
-      <div className="flex gap-5 my-5 container mx-auto justify-center">
+      <div className=" text-right container mx-auto bg-indigo-700 py-1">
+        <button
+          onClick={handlePrint}
+          className="text-white bg-green-600 m-3 px-4 py-2 rounded hover:bg-green-700 active:bg-green-800"
+        >
+          Print
+        </button>
+      </div>
+      <div className="lg:flex gap-5 my-5 container mx-auto justify-center">
         <div className="">
-          <label className="block text-gray-300 text-sm">
+          <label className="block text-gray-300 text-sm mt-3">
             Search by question name:
           </label>
           <input
@@ -91,7 +107,7 @@ const Questions: FC = () => {
           />
         </div>
         <div className="">
-          <label className="block text-gray-300 text-sm">
+          <label className="block text-gray-300 text-sm mt-3">
             Search by subject:
           </label>
           <input
@@ -104,7 +120,7 @@ const Questions: FC = () => {
           />
         </div>
         <div className="">
-          <label className="block text-gray-300 text-sm">
+          <label className="block text-gray-300 text-sm mt-3">
             Search by user name:
           </label>
           <input
@@ -117,7 +133,7 @@ const Questions: FC = () => {
           />
         </div>
       </div>
-      <div className="grid grid-cols-3 gap-4 container mx-auto">
+      <div className="md:grid lg:grid-cols-3 md:grid-cols-2 gap-4 container mx-auto">
         {displayQuestion.map((question: Quiz, i: number) => (
           <SingleQuestion
             key={i}
@@ -126,6 +142,15 @@ const Questions: FC = () => {
             question={question}
           />
         ))}
+      </div>
+      <div>
+        <ReactToPrint content={() => componentRef.current} />
+        <div className=" hidden">
+          <PrintPageHome
+            allSelectedQuestion={allSelectedQuestion}
+            ref={componentRef}
+          />
+        </div>
       </div>
     </div>
   );

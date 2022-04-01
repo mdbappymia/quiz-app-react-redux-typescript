@@ -1,27 +1,27 @@
-import { FC } from "react";
-import { useSelector } from "react-redux";
+import { FC, forwardRef } from "react";
 import { Quiz } from "../../../interfaces/interfaces";
-import { RootState } from "../../../redux/store/store";
 import SingleQuestionPrint from "../SingleQuestionPrint/SingleQuestionPrint";
 
-const PrintPageHome: FC = () => {
-  const allSelectedQuestion = useSelector(
-    (state: RootState) => state.question.questions
-  );
-  console.log(allSelectedQuestion);
-  return (
-    <div className="m-5 border-4 p-10 container mx-auto">
-      <h1 className="text-center uppercase font-bold text-4xl mb-10">
-        Question
-      </h1>
-      <hr />
-      <div className="grid grid-cols-2 gap-5 my-10">
-        {allSelectedQuestion.map((question: Quiz, i: number) => (
-          <SingleQuestionPrint i={i} question={question} key={question.qid} />
-        ))}
+const PrintPageHome: FC<any> = forwardRef(
+  ({ allSelectedQuestion }, ref: any) => {
+    window.document.title = "Your Question";
+    return (
+      <div ref={ref} className="">
+        <h1 className="text-center uppercase font-bold text-4xl pb-2">
+          Question
+        </h1>
+        <hr />
+        <div
+          className="grid grid-cols-2 gap-1 container mx-auto mt-3"
+          style={{ fontSize: 10 }}
+        >
+          {allSelectedQuestion.map((question: Quiz, i: number) => (
+            <SingleQuestionPrint i={i} question={question} key={question.qid} />
+          ))}
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+);
 
 export default PrintPageHome;

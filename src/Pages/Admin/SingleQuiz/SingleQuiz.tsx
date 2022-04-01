@@ -10,7 +10,7 @@ interface IProps {
 }
 const SingleQuiz: FC<IProps> = ({ item, i }) => {
   const dispatch = useDispatch();
-  const { question, options, answer, qid, id } = item;
+  const { question, options, answer, qid, id, approve } = item;
   const handleApprove = (id: string) => {
     const isApprove = window.confirm("Are you sure?");
     if (isApprove) {
@@ -55,8 +55,9 @@ const SingleQuiz: FC<IProps> = ({ item, i }) => {
       </div>
       <div className="text-white">
         <button
+          disabled={approve === true}
           onClick={() => handleApprove(qid)}
-          className="uppercase font-bold bg-green-600 hover:bg-green-700 active:bg-green-800 my-2 px-4 py-2 rounded mr-2"
+          className="uppercase font-bold bg-green-600 hover:bg-green-700 active:bg-green-800 my-2 px-4 py-2 rounded mr-2 disabled:bg-gray-50"
         >
           Approve
         </button>
