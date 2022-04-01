@@ -10,7 +10,7 @@ interface IProps {
 }
 const SingleQuiz: FC<IProps> = ({ item, i }) => {
   const dispatch = useDispatch();
-  const { question, options, answer, qid, id, approve } = item;
+  const { question, options, answer, qid, id, approve, subject } = item;
   const handleApprove = (id: string) => {
     const isApprove = window.confirm("Are you sure?");
     if (isApprove) {
@@ -38,6 +38,7 @@ const SingleQuiz: FC<IProps> = ({ item, i }) => {
       <p className="font-bold mb-2">
         Q{i + 1}: {question}
       </p>
+      <p className="font-bold text-xl my-2">Subject: {subject}</p>
       <div>
         <ol className="list-inside list-decimal">
           {options.map((option: string, i: number) => (
