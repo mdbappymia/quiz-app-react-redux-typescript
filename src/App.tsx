@@ -8,10 +8,10 @@ import AddQuestion from "./Pages/QuizPage/AddQuestion/AddQuestion";
 
 interface IProps {
   result: any;
-  setResult: Function;
 }
 
-const App: FC<IProps> = ({ result, setResult }) => {
+const App: FC<IProps> = ({ result }) => {
+  document.title = "Home";
   const [start, setStart] = useState(false);
   const dispatch = useDispatch();
   const [addQuestion, setAddQuestion] = useState(false);

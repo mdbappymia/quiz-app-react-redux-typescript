@@ -8,6 +8,7 @@ const ManageAllQuiz = () => {
   const allQuestion = useSelector(
     (state: RootState) => state.admin.manageQuestion
   );
+  window.document.title = "Manage All Question";
   const [displayQuestion, setDisplayQuestion] = useState(allQuestion);
   const [questionText, setQuestionText] = useState("");
   const [subjectText, setSubjectText] = useState("");

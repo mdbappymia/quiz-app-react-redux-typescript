@@ -44,10 +44,7 @@ const RouterComponent: FC = () => {
       />
       <div className="bg-black px-2">
         <Routes>
-          <Route
-            path="/"
-            element={<App result={result} setResult={setResult} />}
-          />
+          <Route path="/" element={<App result={result} />} />
           <Route
             path="/admin"
             element={

@@ -4,6 +4,7 @@ import { RootState } from "../../../redux/store/store";
 import SingleQuiz from "../SingleQuiz/SingleQuiz";
 
 const AdminHome = () => {
+  document.title = "Admin approval";
   const quizes = useSelector(
     (state: RootState) => state.admin.withoutApproveQuiz
   );
