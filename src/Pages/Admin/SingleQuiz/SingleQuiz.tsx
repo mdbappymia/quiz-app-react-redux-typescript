@@ -15,7 +15,6 @@ const SingleQuiz: FC<IProps> = ({ item, i }) => {
     const isApprove = window.confirm("Are you sure?");
     if (isApprove) {
       approveQuiz(id).then((data: any) => {
-        console.log(data);
         if (data.message === "OK") {
           dispatch(removeSinglequiz(qid));
           alert("Success");
@@ -27,7 +26,6 @@ const SingleQuiz: FC<IProps> = ({ item, i }) => {
     const isDelete = window.confirm("Are you sure?");
     if (isDelete) {
       deleteQuiz(id).then((data) => {
-        console.log(data);
         if (data.message === "OK") {
           dispatch(removeSinglequiz(qid));
           alert("Success");

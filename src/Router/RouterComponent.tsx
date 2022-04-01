@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import App from "../App";
+import PrivetRoute from "../auth/PrivetRoute";
 import AdminHome from "../Pages/Admin/AdminHome/AdminHome";
 import ManageAllQuiz from "../Pages/Admin/ManageAllQuiz/ManageAllQuiz";
 import PrintPageHome from "../Pages/PrintPage/PrintPageHome/PrintPageHome";
@@ -32,10 +33,24 @@ const RouterComponent: FC = () => {
             path="/"
             element={<App result={result} setResult={setResult} />}
           />
-          <Route path="/admin" element={<AdminHome />} />
+          <Route
+            path="/admin"
+            element={
+              <PrivetRoute>
+                <AdminHome />
+              </PrivetRoute>
+            }
+          />
           <Route path="/questions" element={<Questions />} />
           <Route path="/print" element={<PrintPageHome />} />
-          <Route path="/manage" element={<ManageAllQuiz />} />
+          <Route
+            path="/manage"
+            element={
+              <PrivetRoute>
+                <ManageAllQuiz />
+              </PrivetRoute>
+            }
+          />
         </Routes>
       </div>
       <Footer />

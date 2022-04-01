@@ -1,6 +1,4 @@
 import { FC, useState } from "react";
-
-import useFirebase from "./hooks/useFirebase";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./redux/store/store";
 import { setSubjectQuiz } from "./redux/actions/quizAction";
@@ -23,7 +21,6 @@ const App: FC<IProps> = ({ result, setResult }) => {
   const isLoading = useSelector((state: RootState) => state.users.isLoading);
   const subjects = useSelector((state: RootState) => state.quiz.subjects);
   const initialWait = useSelector((state: RootState) => state.quiz.initialWait);
-  const { googleSignIn, logOut } = useFirebase();
 
   if (isLoading) {
     return (
@@ -41,23 +38,7 @@ const App: FC<IProps> = ({ result, setResult }) => {
       <h1 className="text-white text-center font-bold uppercase">
         {user.displayName}
       </h1>
-      <div className="text-center">
-        {!user.email ? (
-          <button
-            className=" bg-lime-600 mx-3 px-5 font-bold text-white uppercase rounded hover:bg-green-700 py-3"
-            onClick={googleSignIn}
-          >
-            login
-          </button>
-        ) : (
-          <button
-            className=" bg-red-600 mx-3 px-5 font-bold text-white uppercase rounded hover:bg-red-700 py-3"
-            onClick={logOut}
-          >
-            Log out
-          </button>
-        )}
-      </div>
+
       <p className="font-bold text-yellow-500 text-center w-72 mx-auto my-5">
         NB: Thiking first then chose the answer. Because you can not undo the
         selected answer.
@@ -107,7 +88,7 @@ const App: FC<IProps> = ({ result, setResult }) => {
               >
                 Start
               </button>
-              {user.email === "mbm.21.02.16@gmail.com" && (
+              {user.email && (
                 <button
                   className=" bg-lime-600 mx-3 px-5 font-bold text-white uppercase rounded hover:bg-green-700 py-3"
                   onClick={() => setAddQuestion(true)}
@@ -123,7 +104,7 @@ const App: FC<IProps> = ({ result, setResult }) => {
         <div className="text-white text-center mt-3">
           <p>Your last result is</p>
           <p>Subject: {result.subject}</p>
-          <p>Score: {result.score}%</p>
+          <p>Score: {result.score.toFixed(2)}%</p>
         </div>
       )}
     </div>

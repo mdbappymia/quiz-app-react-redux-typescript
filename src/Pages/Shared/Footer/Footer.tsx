@@ -2,9 +2,9 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div>
-      <h1 className="text-center font-bold uppercase text-5xl py-10 bg-black text-white">
-        Footer
+    <div className=" bg-gray-800 py-10">
+      <h1 className="text-center font-bold uppercase text-xl text-gray-400">
+        developed by <span className=" text-yellow-500">Md. Bappy Mia</span>
       </h1>
     </div>
   );

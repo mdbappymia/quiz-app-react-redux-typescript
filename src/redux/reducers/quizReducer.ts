@@ -74,7 +74,7 @@ const quizReducer = (state = initialState, action: Action) => {
       if (action.payload === "all") {
         return {
           ...state,
-          subjectQuiz: state.quizes.slice(0, 5),
+          subjectQuiz: state.quizes.slice(0, 15),
         };
       }
       return {
@@ -82,7 +82,7 @@ const quizReducer = (state = initialState, action: Action) => {
         userSelectedSubject: action.payload,
         subjectQuiz: state.quizes
           .filter((item: Quiz) => item.subject === action.payload)
-          .slice(0, 5),
+          .slice(0, 15),
       };
     }
     default: {

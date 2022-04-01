@@ -6,10 +6,8 @@ export const getAllQuizes = async (approve: boolean) => {
   const q = query(collection(db, "quizes"), where("approve", "==", approve));
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
-    console.log(doc.id);
     quizes.push({ ...doc.data(), qid: doc.id });
   });
-
   return quizes;
 };
 
@@ -18,9 +16,7 @@ export const getManageQuestion = async () => {
   const q = query(collection(db, "quizes"));
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
-    console.log(doc.id);
     quizes.push({ ...doc.data(), qid: doc.id });
   });
-
   return quizes;
 };
