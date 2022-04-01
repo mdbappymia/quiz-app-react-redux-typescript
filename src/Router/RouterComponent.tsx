@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import App from "../App";
 import PrivetRoute from "../auth/PrivetRoute";
 import AdminHome from "../Pages/Admin/AdminHome/AdminHome";
@@ -9,6 +9,7 @@ import ManageAllQuiz from "../Pages/Admin/ManageAllQuiz/ManageAllQuiz";
 import Questions from "../Pages/QuestionPage/Questions/Questions";
 import Footer from "../Pages/Shared/Footer/Footer";
 import Header from "../Pages/Shared/Header/Header";
+import "react-toastify/dist/ReactToastify.css";
 
 import {
   allQuizForManage,
@@ -17,6 +18,7 @@ import {
 import { allQuiz } from "../redux/actions/quizAction";
 
 const RouterComponent: FC = () => {
+  toast.configure();
   const [result, setResult] = useState<any>({});
   const dispatch = useDispatch();
   useEffect(() => {
