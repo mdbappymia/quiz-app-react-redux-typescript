@@ -12,9 +12,7 @@ import SingleQuestion from "../SingleQuestion/SingleQuestion";
 
 const Questions: FC = () => {
   const dispatch = useDispatch();
-  const allQuiz = useSelector(
-    (state: RootState) => state.question.manageQuestion
-  );
+  const allQuiz = useSelector((state: RootState) => state.admin.manageQuestion);
   const allSelectedQuestion = useSelector(
     (state: RootState) => state.question.questions
   );

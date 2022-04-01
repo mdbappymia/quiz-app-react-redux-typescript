@@ -34,7 +34,7 @@ const AddQuestion: FC = () => {
   };
   const handleSubmit = async () => {
     const submittedData = {
-      id: Date.now(),
+      id: `${Date.now()}${user.displayName.replace(/\s/g, "") || "Unknown"}`,
       question: question,
       options: questionOptions,
       answer: correctAnswer || questionOptions[0],

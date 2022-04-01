@@ -2,9 +2,11 @@ import { Action, Quiz } from "../../interfaces/interfaces";
 
 interface AdminState {
   withoutApproveQuiz: Array<Quiz>;
+  manageQuestion: Array<Quiz>;
 }
 const initialState: AdminState = {
   withoutApproveQuiz: [],
+  manageQuestion: [],
 };
 
 const adminReducer = (state = initialState, action: Action) => {
@@ -15,6 +17,12 @@ const adminReducer = (state = initialState, action: Action) => {
         withoutApproveQuiz: action.payload,
       };
     }
+    case "GET_ALL_QUESTION_FOR_MANAGE": {
+      return {
+        ...state,
+        manageQuestion: action.payload,
+      };
+    }
     case "REMOVE_SINGLE_QUIZ": {
       return {
         ...state,
@@ -23,6 +31,9 @@ const adminReducer = (state = initialState, action: Action) => {
             (quiz: Quiz) => quiz.qid !== action.payload
           ),
         ],
+        manageQuestion: state.manageQuestion.filter(
+          (item) => item.qid !== action.payload
+        ),
       };
     }
     default: {

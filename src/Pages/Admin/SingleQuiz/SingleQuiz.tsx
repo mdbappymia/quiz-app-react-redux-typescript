@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import { approveQuiz, deleteQuiz } from "../../../functions/handleQuiz";
 import { Quiz } from "../../../interfaces/interfaces";
 import { removeSinglequiz } from "../../../redux/actions/adminAction";
@@ -17,7 +18,15 @@ const SingleQuiz: FC<IProps> = ({ item, i }) => {
       approveQuiz(id).then((data: any) => {
         if (data.message === "OK") {
           dispatch(removeSinglequiz(qid));
-          alert("Success");
+          toast("Update Success", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
         }
       });
     }
@@ -28,7 +37,15 @@ const SingleQuiz: FC<IProps> = ({ item, i }) => {
       deleteQuiz(id).then((data) => {
         if (data.message === "OK") {
           dispatch(removeSinglequiz(qid));
-          alert("Success");
+          toast("Delete Success", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
         }
       });
     }

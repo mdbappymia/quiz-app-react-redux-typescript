@@ -6,7 +6,7 @@ import SingleQuiz from "../SingleQuiz/SingleQuiz";
 
 const ManageAllQuiz = () => {
   const allQuestion = useSelector(
-    (state: RootState) => state.question.manageQuestion
+    (state: RootState) => state.admin.manageQuestion
   );
   return (
     <div className="bg-black min-h-screen">
